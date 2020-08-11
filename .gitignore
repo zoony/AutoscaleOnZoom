@@ -1,0 +1,8 @@
+# Created by .ignore support plugin (hsz.mobi)
+node_modules
+dist/main.bundle.js
+dist/vendors~canvg.bundle.js
+dist/vendors~pdfmake.bundle.js
+dist/vendors~xlsx.bundle.js
+dist/xlsx.bundle.js
+package-lock.json

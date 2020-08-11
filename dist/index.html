@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Amcharts v4 Autoscale on Zoom - v2</title>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class='ctrls'>
+        <button id="btn1" type="button">Zoom In</button>
+        <button id="btn2" type="button">Show Full Range</button>
+
+        <div>
+            <input type="checkbox" id="yClip" name="yClip">
+            <label for="yClip">
+                Clip all y < 0 to Zero
+            </label>
+        </div>
+
+        <div>
+            <input type="checkbox" id="cursorSnap" name="cursorSnap">
+            <label for="cursorSnap">
+                Snap Cursor
+            </label>
+        </div>
+
+        <div id='dInfo'>
+        </div>
+
+    </div>
+    <div id="chartdiv1"></div>
+    <div id="chartdiv2"></div>
+</div>
+
+
+<script src="main.bundle.js"></script>
+</body>
+</html>
