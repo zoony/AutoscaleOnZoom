@@ -502,6 +502,10 @@ function initChart(
         strokeWidth: 2,
         strokeOpacity: 0.25
     }
+    chart.plotContainer.background.config = {
+        fill: am4core.color('white'),
+        fillOpacity: 1
+    }
     return chart;
 }
 
