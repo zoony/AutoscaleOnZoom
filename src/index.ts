@@ -100,6 +100,14 @@ document.getElementById("cursorSnap")!.addEventListener("change", (evt: any) => 
     initCursor(charts[1], snapFlag);
 });
 
+document.getElementById("oppositeAxes")!.addEventListener("change", (evt: any) => {
+
+    const oppAxFlag = evt.target.checked;
+
+    toggleOppositeAxes(charts[0], oppAxFlag);
+    toggleOppositeAxes(charts[1], oppAxFlag);
+});
+
 // *********************************************************
 
 function initData() {
@@ -394,6 +402,8 @@ function initAxes(chart: XYChart, xAxisType: X_AXIS_TYPE) {
 
     valueAxisRight.renderer.opposite = true;
 
+    toggleOppositeAxes(chart, false);
+
     initLine(valueAxisRight);
     initTicks(valueAxisRight);
 
@@ -469,6 +479,18 @@ function initCursor(
         ];
     }
     // chart.cursor.xAxis = xAxisBottom;
+}
+
+function toggleOppositeAxes(
+    chart: XYChart,
+    flag: boolean
+): void {
+
+    const xAxOpp = chart.xAxes.getIndex(1)!;
+    const yAxOpp = chart.yAxes.getIndex(1)!;
+
+    xAxOpp.renderer.disabled = !flag;
+    yAxOpp.renderer.disabled = !flag;
 }
 
 // *************************************************************
