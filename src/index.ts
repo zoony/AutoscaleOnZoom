@@ -241,7 +241,7 @@ function initScrollbar(chart: XYChart, series: LineSeries) {
 
     sb.background.config = {
         stroke: am4core.color("blue").lighten(0.5),
-        strokeOpacity: 0.5,
+        strokeOpacity: 0.2,
         fill: am4core.color("white"),
         fillOpacity: 0
     }
@@ -255,12 +255,16 @@ function initScrollbar(chart: XYChart, series: LineSeries) {
     //     sb.unselectedOverlay.strokeWidth = 1;
 
     sb.thumb.background.config = {
-        stroke: am4core.color("yellow").lighten(-0.5),
+        stroke: am4core.color("blue").lighten(0.5),
         strokeWidth: 2,
         strokeOpacity: 0.5,
-        fill: am4core.color("yellow").lighten(0.5),
-        fillOpacity: 0.2
+        fill: am4core.color("white"),
+        fillOpacity: 1,
+        zIndex: 1
     }
+
+    sb.scrollbarChart.zIndex = 100;
+
     const scrollAxis = sb.scrollbarChart.xAxes.getIndex(0);
     if (scrollAxis) {
 
@@ -268,8 +272,8 @@ function initScrollbar(chart: XYChart, series: LineSeries) {
     }
     // scrollAxis.renderer.grid.template.disabled = true;
 
-    customizeGrip(sb.startGrip, "yellow", -0.2);
-    customizeGrip(sb.endGrip, "yellow", -0.2);
+    customizeGrip(sb.startGrip, "blue", 0.5);
+    customizeGrip(sb.endGrip, "blue", 0.5);
 
     sb.thumb.background.states.create("hover").config = {
         fill: am4core.color("yellow").lighten(-0.2),
