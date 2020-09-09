@@ -263,6 +263,36 @@ function initScrollbar(chart: XYChart, series: LineSeries) {
         zIndex: 1
     }
 
+    // ********************************************************************
+
+    let thumbHoverState;
+
+    thumbHoverState = sb.thumb.background.states.getKey('hover');
+
+    if (!thumbHoverState) {
+
+        thumbHoverState = sb.thumb.states.create('hover');
+    }
+
+    thumbHoverState.properties.fill = am4core.color('yellow').lighten(0.2);
+    thumbHoverState.properties.fillOpacity = 0.3;
+
+    // ********************************************************************
+
+    let thumbDownState;
+
+    thumbDownState = sb.thumb.background.states.getKey('down');
+
+    if (!thumbDownState) {
+
+        thumbDownState = sb.thumb.states.create('down');
+    }
+
+    thumbDownState.properties.fill = am4core.color('green').lighten(0.75);
+    thumbDownState.properties.fillOpacity = 0.6;
+
+    // ********************************************************************
+
     sb.scrollbarChart.zIndex = 100;
 
     const scrollAxis = sb.scrollbarChart.xAxes.getIndex(0);
@@ -274,16 +304,6 @@ function initScrollbar(chart: XYChart, series: LineSeries) {
 
     customizeGrip(sb.startGrip, "blue", 0.5);
     customizeGrip(sb.endGrip, "blue", 0.5);
-
-    sb.thumb.background.states.create("hover").config = {
-        fill: am4core.color("yellow").lighten(-0.2),
-        fillOpacity: 0.2
-    }
-
-    sb.thumb.background.states.create("down").config = {
-        fill: am4core.color("white"),
-        fillOpacity: 0.2
-    };
 }
 
 function initBullets(series: LineSeries) {
