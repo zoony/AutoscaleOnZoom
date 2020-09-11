@@ -238,6 +238,7 @@ function initScrollbar(chart: XYChart, series: LineSeries) {
     // sb.dy = 10;
 
     sb.scrollbarChart.plotContainer.filters.clear();
+    sb.cursorOverStyle = am4core.MouseCursorStyle.default;
 
     sb.background.config = {
         stroke: am4core.color("blue").lighten(0.5),
@@ -304,6 +305,7 @@ function initScrollbar(chart: XYChart, series: LineSeries) {
 
     customizeGrip(sb.startGrip, "blue", 0.5);
     customizeGrip(sb.endGrip, "blue", 0.5);
+
 }
 
 function initBullets(series: LineSeries) {
@@ -502,6 +504,7 @@ function initCursor(
             },
         ];
     }
+
     // chart.cursor.xAxis = xAxisBottom;
 }
 
