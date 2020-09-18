@@ -30,6 +30,52 @@ import {ISpriteProperties} from '@amcharts/amcharts4/.internal/core/Sprite';
 
 // *****************************************************
 
+/*
+    initData
+        Get x,y data file from github
+    initDemoData
+        Init demoData ready to use for charts from rawData
+        Called by
+            initData
+            Change in clipping of y values (user initiated)
+    customizeGrip
+        Customize grips for zommed in section of the XYChartScrollbar
+        Called by
+            initScrollbar
+    initToolTips
+        Called by
+            initChart
+    initScrollbar
+        Called by
+            initChart
+    initBullets
+        Called by
+            initChart
+    initAxes
+        Called by
+            initChart
+    initSeries
+        Called by
+            initChart
+    initCursor
+        Called by
+            initChart
+            Change in cursorSnap status (user initiated)
+    toggleOppositeAxes
+        Called by
+            initAxes
+            Change in oppositeAxes status (user initiated)
+    initChart
+        Called by
+            initData
+    zoomTo
+        Called by
+            button click listener for
+                Zoom In
+                Show Full Range
+ */
+// *****************************************************
+
 enum X_AXIS_TYPE {
     numbers,
     dates
