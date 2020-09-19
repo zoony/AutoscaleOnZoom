@@ -14,6 +14,7 @@ import {
 import {
     AxisLabel,
     AxisLine,
+    ICategoryAxisDataFields,
     LineSeries,
     ValueAxis,
     XYChart,
@@ -32,11 +33,13 @@ import {ISpriteProperties} from '@amcharts/amcharts4/.internal/core/Sprite';
 
 enum X_AXIS_TYPE {
     numbers,
-    dates
+    dates,
+    categories
 }
 
 const xColName = "channel";
 const dateColName = "date";
+const categoryColName = "category";
 const yColName = "y";
 
 let charts: am4charts.XYChart[] = [];
@@ -90,6 +93,7 @@ document.getElementById("yClip")!.addEventListener("change", (evt: any) => {
     }
     charts[0].data = demoData;
     charts[1].data = demoData;
+    charts[2].data = demoData;
 });
 
 document.getElementById("cursorSnap")!.addEventListener("change", (evt: any) => {
@@ -98,6 +102,7 @@ document.getElementById("cursorSnap")!.addEventListener("change", (evt: any) => 
 
     initCursor(charts[0], snapFlag);
     initCursor(charts[1], snapFlag);
+    initCursor(charts[2], snapFlag);
 });
 
 document.getElementById("oppositeAxes")!.addEventListener("change", (evt: any) => {
@@ -106,6 +111,7 @@ document.getElementById("oppositeAxes")!.addEventListener("change", (evt: any) =
 
     toggleOppositeAxes(charts[0], oppAxFlag);
     toggleOppositeAxes(charts[1], oppAxFlag);
+    toggleOppositeAxes(charts[2], oppAxFlag);
 });
 
 // *********************************************************
@@ -132,6 +138,7 @@ function initData() {
 
         charts.push(initChart(0, "chartdiv1", demoData, X_AXIS_TYPE.numbers));
         charts.push(initChart(1, "chartdiv2", demoData, X_AXIS_TYPE.dates));
+        charts.push(initChart(2, "chartdiv3", demoData, X_AXIS_TYPE.categories));
     });
     dataSource.events.on("error", function (ev) {
         console.log("Oopsy! Something went wrong");
@@ -170,6 +177,8 @@ function initDemoData(clipFlag?: boolean): void {
             y: clipFlag && y < 0 ? 0 : y,
             // y: (clipFlag && row[1] < 0) ? 0 : row[1],
             date: newDate,
+            // category: x.toFixed(3)
+            category: index.toString()
         };
     });
     if (clipFlag && yMin < 0) {
@@ -327,19 +336,19 @@ function initAxes(chart: XYChart, xAxisType: X_AXIS_TYPE) {
 
     // ************************************************
 
-    const initLine = (axis: ValueAxis) => {
+    const initLine = (axis: ValueAxis | am4charts.DateAxis | am4charts.CategoryAxis) => {
 
         axis.renderer.line.config = axLine;
     };
-    const initTicks = (axis: ValueAxis) => {
+    const initTicks = (axis: ValueAxis | am4charts.DateAxis | am4charts.CategoryAxis) => {
 
         axis.renderer.ticks.template.config = axTicks;
     };
 
     // ************************************************
 
-    let xAxisBottom: ValueAxis | am4charts.DateAxis;
-    let xAxisTop: ValueAxis | am4charts.DateAxis;
+    let xAxisBottom: ValueAxis | am4charts.DateAxis | am4charts.CategoryAxis;
+    let xAxisTop: ValueAxis | am4charts.DateAxis | am4charts.CategoryAxis;
 
     switch (xAxisType) {
 
@@ -383,6 +392,22 @@ function initAxes(chart: XYChart, xAxisType: X_AXIS_TYPE) {
             chart.xAxes.push(xAxisTop);
 
             (xAxisTop.dataFields as IDateAxisDataFields).date = dateColName;
+            break;
+
+        case X_AXIS_TYPE.categories:
+
+            xAxisBottom = new am4charts.CategoryAxis();
+
+            chart.xAxes.push(xAxisBottom);
+
+            (xAxisBottom.dataFields as ICategoryAxisDataFields).category = categoryColName;
+
+            xAxisTop = new am4charts.CategoryAxis();
+
+            chart.xAxes.push(xAxisTop);
+
+            (xAxisTop.dataFields as ICategoryAxisDataFields).category = categoryColName;
+
             break;
     }
 
@@ -455,6 +480,11 @@ function initSeries(
 
             series.dataFields.dateX = dateColName;
             // series.tooltipText = "{dateX}, {valueY}";
+            break;
+
+        case X_AXIS_TYPE.categories:
+
+            series.dataFields.categoryX = categoryColName
             break;
     }
     series.dataFields.valueY = yColName;
