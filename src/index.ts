@@ -543,11 +543,17 @@ function toggleOppositeAxes(
     flag: boolean
 ): void {
 
-    const xAxOpp = chart.xAxes.getIndex(1)!;
-    const yAxOpp = chart.yAxes.getIndex(1)!;
+    const xAxOpp = chart.xAxes.getIndex(1);
+    const yAxOpp = chart.yAxes.getIndex(1);
 
-    xAxOpp.renderer.disabled = !flag;
-    yAxOpp.renderer.disabled = !flag;
+    if (xAxOpp) {
+
+        xAxOpp.renderer.disabled = !flag;
+    }
+    if (yAxOpp) {
+
+        yAxOpp.renderer.disabled = !flag;
+    }
 }
 
 // *************************************************************
