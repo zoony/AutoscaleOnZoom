@@ -1,16 +1,20 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     background-color: #e2d5c794;
+    margin: 0;
+    padding: 0;
 }
 button {
     padding: 0.5em 1em;
 }
 .wrapper {
     display: grid;
-    grid-gap: 20px;
+    grid-gap: 5px;
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr 1fr 1fr;
+    box-sizing: border-box;
     height: 100vh;
+    padding: 10px;
 }
 .ctrls {
     display: grid;
@@ -19,11 +23,33 @@ button {
     align-items: center;
 }
 #chartdiv1,
-#chartdiv2 {
+#chartdiv2,
+#chartdiv3 {
     width: 100%;
     height: 100%;
 }
 
+#chartdiv1::before {
+    content: 'X-Axis: ValueAxis';
+}
+#chartdiv2::before {
+    content: 'X-Axis: DateAxis';
+}
+#chartdiv3::before {
+    content: 'X-Axis: CategoryAxis';
+}
+#chartdiv1::before,
+#chartdiv2::before,
+#chartdiv3::before {
+    position: absolute;
+    color: #2762fc;
+    font-weight: bold;
+    font-size: 1.2em;
+    background: rgba(255, 255, 128, 0.5);
+    padding: 10px;
+    border: 2px solid rgba(128, 128, 0, 0.5);
+    z-index: 100;
+}
 .neg-val {
     color: red
 }
@@ -33,3 +59,4 @@ button {
     padding: 10px;
     border: 2px solid rgba(128, 128, 0, 0.5);
 }
+
