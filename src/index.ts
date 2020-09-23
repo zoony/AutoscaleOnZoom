@@ -39,36 +39,47 @@ import {ISpriteProperties} from '@amcharts/amcharts4/.internal/core/Sprite';
             initData
             Change in clipping of y values (user initiated)
     customizeGrip
-        Customize grips for zommed in section of the XYChartScrollbar
+        Customize grips for zoomed in section of the XYChartScrollbar
         Called by
             initScrollbar
     initToolTips
+        Define some tooltip styling parameters
         Called by
             initChart
     initScrollbar
+        Create an XYChartScrollbar and assgne to a chart
+        Initialise various configuration settings
         Called by
             initChart
     initBullets
+        Setup CircleBullet for series.bullets
         Called by
             initChart
     initAxes
+        Initialise axes for a chart
         Called by
             initChart
     initSeries
+        Add a LineSeries to a given chart
         Called by
             initChart
     initCursor
+        Add an XYCursor to a given chart
+        Set some configuration parameters
         Called by
             initChart
             Change in cursorSnap status (user initiated)
     toggleOppositeAxes
+        Allow the rendering of opposite (x & y) axes of a given chart to be enabled/disabled
         Called by
             initAxes
             Change in oppositeAxes status (user initiated)
     initChart
+        Initialise a chart for a given x-axis type (ValueAxis, DateAxis or CategoryAxis)
         Called by
             initData
     zoomTo
+        Call the x-axis zoom function for each chart using start, end values
         Called by
             button click listener for
                 Zoom In
@@ -157,6 +168,7 @@ document.getElementById("oppositeAxes")!.addEventListener("change", (evt: any) =
 // *********************************************************
 
 function initData() {
+
     const dataSource = new am4core.DataSource();
     // dataSource.url = "testData.csv";
     dataSource.url =
@@ -186,7 +198,10 @@ function initData() {
 
 // *********************************************************
 
-function initDemoData(clipFlag?: boolean): void {
+function initDemoData(
+    clipFlag?: boolean
+): void {
+
     const firstDate = new Date();
 
     yMin = 1e6;
@@ -261,7 +276,9 @@ function customizeGrip(
     // line.valign = "middle";
 }
 
-function initToolTips(series: LineSeries) {
+function initToolTips(
+    series: LineSeries
+) {
 
     series.tooltipText = "{valueY}";
 
@@ -274,7 +291,10 @@ function initToolTips(series: LineSeries) {
     }
 }
 
-function initScrollbar(chart: XYChart, series: LineSeries) {
+function initScrollbar(
+    chart: XYChart,
+    series: LineSeries
+) {
 
     const sb = new am4charts.XYChartScrollbar();
     chart.scrollbarX = sb;
@@ -354,7 +374,10 @@ function initScrollbar(chart: XYChart, series: LineSeries) {
 
 }
 
-function initBullets(series: LineSeries) {
+function initBullets(
+    series: LineSeries
+) {
+
     series.minBulletDistance = 8;
 
     const bullet = series.bullets.push(new am4charts.CircleBullet());
@@ -369,7 +392,10 @@ function initBullets(series: LineSeries) {
     bullethover.properties.scale = 2;
 }
 
-function initAxes(chart: XYChart, xAxisType: X_AXIS_TYPE) {
+function initAxes(
+    chart: XYChart,
+    xAxisType: X_AXIS_TYPE
+) {
 
     // ************************************************
 
@@ -610,7 +636,10 @@ initData();
 
 // *********************************************************
 
-const zoomTo = (start: number, end: number) => {
+const zoomTo = (
+    start: number,
+    end: number
+) => {
     charts.forEach((chart) => {
         chart.xAxes.values.forEach((xAx) => {
             // xAx.zoomToValues(
