@@ -6,26 +6,18 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 
 import {
     ICSVOptions,
-    object,
-    options,
     ResizeButton
 } from "@amcharts/amcharts4/core";
 
 import {
-    AxisLabel,
-    AxisLine,
     ICategoryAxisDataFields,
     LineSeries,
     ValueAxis,
     XYChart,
-    XYChartScrollbar,
     XYSeries,
 } from "@amcharts/amcharts4/charts";
 
-// import { IDurationAxisDataFields } from "@amcharts/amcharts4/.internal/charts/axes/DurationAxis";
 import {IDateAxisDataFields} from "@amcharts/amcharts4/.internal/charts/axes/DateAxis";
-import {IValueAxisDataFields} from "@amcharts/amcharts4/.internal/charts/axes/ValueAxis";
-import {ISpriteProperties} from '@amcharts/amcharts4/.internal/core/Sprite';
 
 // am4core.useTheme(am4themes_animated);
 
@@ -108,13 +100,11 @@ let xMax = -1e6;
 let yMin = 1e6;
 let yMax = -1e6;
 
-// const axLine: ISpriteProperties = {
 const axLine = {
     strokeOpacity: 1,
     strokeWidth: 2,
     stroke: am4core.color("#3787ac"),
 };
-// const axTicks: ISpriteProperties = {
 const axTicks = {
     disabled: false,
     strokeOpacity: 1,
@@ -130,12 +120,10 @@ const dInfo = document.getElementById("dInfo")!;
 document.getElementById("btn1")!.addEventListener("click", () => {
 
     zoomTo(240 / 800, 3 / 8);
-    // zoomTo(200, 300)
 });
 document.getElementById("btn2")!.addEventListener("click", () => {
 
     zoomTo(0, 1);
-    // zoomTo(0, 799)
 });
 
 document.getElementById("yClip")!.addEventListener("change", (evt: any) => {
@@ -176,9 +164,7 @@ document.getElementById("oppositeAxes")!.addEventListener("change", (evt: any) =
 function initData() {
 
     const dataSource = new am4core.DataSource();
-    // dataSource.url = "testData.csv";
-    dataSource.url =
-        "https://raw.githubusercontent.com/zoony/AutoscaleOnZoom/master/dist/testData.csv";
+    dataSource.url = "https://raw.githubusercontent.com/zoony/AutoscaleOnZoom/master/dist/testData.csv";
     dataSource.parser = new am4core.CSVParser();
 
     (dataSource.parser.options as ICSVOptions).useColumnNames = true; // ************************************
@@ -224,21 +210,13 @@ function initDemoData(
         if (y < yMin) {
             yMin = y;
         }
-        // if (row[1] > yMax) {
-        //     yMax = row[1];
-        // }
-        // if (row[1] < yMin) {
-        //     yMin = row[1];
-        // }
         const newDate = new Date(firstDate);
         newDate.setDate(newDate.getDate() + index);
         return {
             channel: index,
             x: x,
             y: clipFlag && y < 0 ? 0 : y,
-            // y: (clipFlag && row[1] < 0) ? 0 : row[1],
             date: newDate,
-            // category: x.toFixed(3)
             category: index.toString()
         };
     });
@@ -271,18 +249,8 @@ function customizeGrip(
     img.width = 15;
     img.height = 15;
     img.fill = am4core.color(gripCol).lighten(gripColLighten);
-    // img.fillOpacity = 0.5;
-    // img.rotation = 45;
     img.align = "center";
     img.valign = "middle";
-
-    // Add vertical bar
-    // var line = grip.createChild(am4core.Rectangle);
-    // line.height = 60;
-    // line.width = 1;
-    // line.fill = am4core.color("blue");
-    // line.align = "center";
-    // line.valign = "middle";
 }
 
 function initToolTips(
@@ -310,8 +278,6 @@ function initScrollbar(
 
     sb.series.push(series);
 
-    // sb.dy = 10;
-
     sb.scrollbarChart.plotContainer.filters.clear();
     sb.cursorOverStyle = am4core.MouseCursorStyle.default;
 
@@ -321,14 +287,7 @@ function initScrollbar(
         fill: am4core.color("white"),
         fillOpacity: 0
     }
-    // sb.background.disabled = true;
-
     sb.unselectedOverlay.disabled = true;
-    //     sb.unselectedOverlay.fill = am4core.color("green");
-    //     sb.unselectedOverlay.fill = am4core.color("blue").alternative;
-    //     sb.unselectedOverlay.fillOpacity = 1;
-    //     sb.unselectedOverlay.stroke = am4core.color('#ccc');
-    //     sb.unselectedOverlay.strokeWidth = 1;
 
     sb.thumb.background.config = {
         stroke: am4core.color("blue").lighten(0.5),
@@ -396,7 +355,6 @@ function initBullets(
         strokeWidth: 0,
         radius: 3
     }
-
     const bullethover = bullet.states.create("hover");
     bullethover.properties.scale = 2;
 }
@@ -431,24 +389,12 @@ function initAxes(
             chart.xAxes.push(xAxisBottom);
 
             xAxisBottom.dataFields.data = xColName;
-            // (xAxisBottom.dataFields as IValueAxisDataFields).data = xColName;
-            // xAxisBottom.dataFields.valueX = xColName;      // works be no sign of valueX .....??!!
-            // (xAxisBottom.dataFields as IValueAxisDataFields).valueX = xColName;
-            //   (xAxisBottom.dataFields as IDateAxisDataFields).date = dateColName;
-            // console.log(xAxisBottom.renderer.grid);
 
             xAxisTop = new am4charts.ValueAxis();
 
             chart.xAxes.push(xAxisTop);
 
             xAxisTop.dataFields.data = xColName;
-            // xAxisTop.dataFields.valueX = xColName;
-
-            // ************************************************
-            //             xAxisBottom.strictMinMax = true;
-            //             xAxisTop.strictMinMax = true;
-            // ************************************************
-
             break;
 
       case X_AXIS_TYPE.dates:
@@ -545,13 +491,11 @@ function initSeries(
         case X_AXIS_TYPE.numbers:
 
             series.dataFields.valueX = xColName;
-            // series.tooltipText = "{valueX}, {valueY}";
             break;
 
         case X_AXIS_TYPE.dates:
 
             series.dataFields.dateX = dateColName;
-            // series.tooltipText = "{dateX}, {valueY}";
             break;
 
         case X_AXIS_TYPE.categories:
@@ -606,8 +550,6 @@ function initCursor(
             },
         ];
     }
-
-    // chart.cursor.xAxis = xAxisBottom;
 }
 
 function toggleOppositeAxes(
@@ -678,14 +620,6 @@ const zoomTo = (
 ) => {
     charts.forEach((chart) => {
         chart.xAxes.values.forEach((xAx) => {
-            // xAx.zoomToValues(
-            //   200,
-            //   300
-            // );
-            // xAx.zoomToIndexes(
-            //   start,
-            //   end
-            // );
             xAx.zoom({
                 start: start,
                 end: end,
