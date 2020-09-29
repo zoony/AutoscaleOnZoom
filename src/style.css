@@ -19,7 +19,7 @@ button {
 .ctrls {
     display: grid;
     grid-gap: 20px;
-    grid-template-columns: auto auto auto auto auto auto 1fr;
+    grid-template-columns: auto auto auto auto auto auto 1fr auto;
     align-items: center;
 }
 #chartdiv1,
@@ -54,7 +54,8 @@ button {
     color: red
 }
 
-#dInfo {
+#dInfo,
+#dVer {
     background: rgba(255, 255, 128, 0.2);
     padding: 10px;
     border: 2px solid rgba(128, 128, 0, 0.5);

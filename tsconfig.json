@@ -10,15 +10,11 @@
     "target": "es6",
     "allowJs": true,
     "lib": [
-      "ES2017",
-      "DOM"
+      "es2018",
+      "dom"
     ],
-    "removeComments": true
-  },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "src/**/*"
-  ]
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+  }
 }

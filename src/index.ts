@@ -5,6 +5,8 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 // import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
+import amch from '../node_modules/@amcharts/amcharts4/package.json';
+
 import {
     ICSVOptions,
     ResizeButton
@@ -117,6 +119,9 @@ const axTicks = {
 // *******************************************************
 
 const dInfo = document.getElementById("dInfo")!;
+const dVer = document.getElementById("dVer")!;
+
+dVer.innerHTML = `amCharts v${amch.version}`;
 
 document.getElementById("btn1")!.addEventListener("click", () => {
 
