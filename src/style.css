@@ -11,17 +11,38 @@ button {
     display: grid;
     grid-gap: 5px;
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr 1fr auto;
     box-sizing: border-box;
     height: 100vh;
     padding: 10px;
 }
-.ctrls {
+
+.ctrls,
+.information {
     display: grid;
-    grid-gap: 20px;
-    grid-template-columns: auto auto auto auto auto auto 1fr auto;
+    grid-gap: 10px;
+    padding: 5px 10px;
     align-items: center;
+    background: rgb(247 247 212);
+
+    border-width: 2px;
+    border-style: solid;
+
+    border-right-color: rgba(256, 256, 256, 0.5);
+    border-bottom-color: rgba(256, 256, 256, 0.5);
+
+    border-top-color: rgba(128, 128, 0, 0.5);
+    border-left-color: rgba(128, 128, 0, 0.5);
 }
+
+.ctrls {
+    grid-template-columns: auto auto auto auto auto 1fr;
+}
+
+.information {
+    grid-template-columns: auto 1fr auto;
+}
+
 #chartdiv1,
 #chartdiv2,
 #chartdiv3 {
@@ -42,13 +63,21 @@ button {
 #chartdiv2::before,
 #chartdiv3::before {
     position: absolute;
+    margin-top: 10px;
     color: #2762fc;
-    font-weight: bold;
-    font-size: 1.2em;
-    background: rgba(255, 255, 128, 0.5);
-    padding: 10px;
-    border: 2px solid rgba(128, 128, 0, 0.5);
+    font-weight: 600;
+    font-size: 1.1em;
+    background: rgb(247 247 212);
+    padding: 5px;
     z-index: 100;
+    border-width: 2px;
+    border-style: solid;
+
+    border-top-color: rgba(256, 256, 256, 0.5);
+    border-left-color: rgba(256, 256, 256, 0.5);
+
+    border-right-color: rgba(128, 128, 0, 0.5);
+    border-bottom-color: rgba(128, 128, 0, 0.5);
 }
 .neg-val {
     color: red
@@ -56,8 +85,5 @@ button {
 
 #dInfo,
 #dVer {
-    background: rgba(255, 255, 128, 0.2);
-    padding: 10px;
-    border: 2px solid rgba(128, 128, 0, 0.5);
 }
 
