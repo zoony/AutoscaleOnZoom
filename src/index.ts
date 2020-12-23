@@ -127,21 +127,25 @@ document.getElementById("btn1")!.addEventListener("click", () => {
 
     zoomTo(240 / 800, 3 / 8);
 });
+
 document.getElementById("btn2")!.addEventListener("click", () => {
 
     zoomTo(0, 1);
 });
 
-document.getElementById("yClip")!.addEventListener("change", (evt: any) => {
+document.getElementById("yMinGaps")!.addEventListener("change", (evt: any) => {
 
-    if (evt.target.checked) {
+    let negFlag = false;
+    let negVal = 0.0;
 
-        initDemoData(true);
+    if (evt.target.value &&
+        evt.target.value != '') {
 
-    } else {
-
-        initDemoData();
+        negFlag = true;
+        negVal = parseFloat(evt.target.value);
     }
+
+    initDemoData(negFlag, negVal);
     charts[0].data = demoData;
     charts[1].data = demoData;
     charts[2].data = demoData;
@@ -163,6 +167,7 @@ document.getElementById("oppositeAxes")!.addEventListener("change", (evt: any) =
     toggleOppositeAxes(charts[0], oppAxFlag);
     toggleOppositeAxes(charts[1], oppAxFlag);
     toggleOppositeAxes(charts[2], oppAxFlag);
+
 });
 
 // *********************************************************
@@ -170,6 +175,7 @@ document.getElementById("oppositeAxes")!.addEventListener("change", (evt: any) =
 function initData() {
 
     const dataSource = new am4core.DataSource();
+
     dataSource.url = "https://raw.githubusercontent.com/zoony/AutoscaleOnZoom/master/dist/testData.csv";
     dataSource.parser = new am4core.CSVParser();
 
@@ -198,7 +204,8 @@ function initData() {
 // *********************************************************
 
 function initDemoData(
-    clipFlag?: boolean
+    negFlag?: boolean,
+    negVal?: number
 ): void {
 
     const firstDate = new Date();
@@ -206,8 +213,8 @@ function initDemoData(
     yMin = 1e6;
     yMax = -1e6;
 
-    demoData = rawData.map((row, index) => {
-        const x = parseFloat(row.x);
+    rawData.forEach((row) => {
+
         const y = parseFloat(row.y);
 
         if (y > yMax) {
@@ -216,18 +223,32 @@ function initDemoData(
         if (y < yMin) {
             yMin = y;
         }
+    });
+    demoData = rawData.map((row, index) => {
+
+        const x = parseFloat(row.x);
+        const y = parseFloat(row.y);
+
         const newDate = new Date(firstDate);
         newDate.setDate(newDate.getDate() + index);
+
+        const yVal = (negFlag && negVal != undefined && y < 0) ? negVal * yMax : y;
+
         return {
             channel: index,
             x: x,
-            y: clipFlag && y < 0 ? 0 : y,
+            y: yVal,
             date: newDate,
             category: index.toString()
         };
     });
-    if (clipFlag && yMin < 0) {
-        yMin = 0;
+
+    if (negFlag &&
+        negVal != undefined &&
+        yMin < 0) {
+
+        yMin = negVal * yMax;
+        // yMin = 0;
     }
     let s = `Data: x[${xMin} => ${xMax}] `;
     const yMinStr =
