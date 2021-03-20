@@ -195,3 +195,4 @@ function initCharts() {
     charts.push(initChart(1, "chartdiv2", demoData, aonz_axes.X_AXIS_TYPE.dates));
     charts.push(initChart(2, "chartdiv3", demoData, aonz_axes.X_AXIS_TYPE.categories));
 }
+

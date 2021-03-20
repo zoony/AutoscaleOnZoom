@@ -32,23 +32,31 @@ export function setCursorConfig(
     chart: XYChart,
     mousePointerVisible: boolean
 ) {
+    const cursorNone = [
+        {
+            property: "cursor",
+
+            value: "none",
+        },
+    ];
+    const cursorDef = am4core.MouseCursorStyle.default;
+
+    let series: XYSeries;
+
     if (mousePointerVisible) {
 
-        const series = <XYSeries>chart.series.getIndex(0);
-
-        chart.cursorOverStyle = am4core.MouseCursorStyle.default;
+        series = <XYSeries>chart.series.getIndex(0);
         chart.cursor.snapToSeries = series;
+
+        // chart.cursorOverStyle = cursorDef;
 
     } else {
 
-        chart.cursorOverStyle = [
-            {
-                property: "cursor",
+        // chart.cursorOverStyle = cursorNone;
 
-                value: "none",
-            },
-        ];
+        chart.cursor.snapToSeries = [];
     }
+
 }
 
 // **********************************************************************

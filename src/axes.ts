@@ -121,6 +121,8 @@ export function initYAxis(): ValueAxis {
     axis.extraMax = 0;
     axis.extraMin = 0;
 
+    // axis.strictMinMax = true;
+
     return axis;
 }
 
