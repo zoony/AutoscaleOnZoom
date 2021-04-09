@@ -25,6 +25,7 @@ let charts: am4charts.XYChart[] = [];
 let demoData: aonz_data.IDataPoint[] = [];
 
 let oppFlag = false;
+let autoscaleFlag = true;
 
 const dVer = document.getElementById("dVer")!;
 
@@ -57,6 +58,30 @@ document.getElementById("yMinGaps")!.addEventListener("change", (evt: any) => {
     charts[0].data = demoData;
     charts[1].data = demoData;
     charts[2].data = demoData;
+});
+
+const cbAutoscaling = <HTMLInputElement>document.getElementById("autoscaling")!;
+
+cbAutoscaling.checked = autoscaleFlag;
+
+cbAutoscaling.addEventListener("change", (evt: any) => {
+
+    autoscaleFlag = evt.target.checked;
+
+    charts.forEach((chart) => {
+
+        chart.series.each((s) => {
+
+            if (autoscaleFlag) {
+
+                s.events.enableType("selectionextremeschanged");
+
+            } else {
+
+                s.events.disableType("selectionextremeschanged");
+            }
+        });
+    })
 });
 
 document.getElementById("cursorSnap")!.addEventListener("change", (evt: any) => {
@@ -123,7 +148,7 @@ function initChart(
 
     aonz_axes.configureAxes(chart, oppFlag);
 
-    const series = aonz_series.initSeries(xAxisType);
+    const series = aonz_series.initSeries(xAxisType, autoscaleFlag);
     chart.series.push(series);
 
     aonz_series.initToolTips(series);

@@ -17,7 +17,8 @@ const yColName = "y";
 // **********************************************************************
 
 export function initSeries(
-    xAxisType: X_AXIS_TYPE
+    xAxisType: X_AXIS_TYPE,
+    autoscaleFlag: boolean
 ): LineSeries {
 
     const series = new am4charts.LineSeries();
@@ -45,6 +46,15 @@ export function initSeries(
     series.fill = am4core.color("blue");
     series.fillOpacity = 0.2;
     series.strokeWidth = 1;
+
+    if (autoscaleFlag) {
+
+        series.events.enableType("selectionextremeschanged");
+
+    } else {
+
+        series.events.disableType("selectionextremeschanged");
+    }
 
     series.showOnInit = false;
 
